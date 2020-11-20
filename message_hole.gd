@@ -1,8 +1,12 @@
 extends Node
 
-onready var _log = $MessageLog
+const LOG_POSTS = []
 
 var is_enable_log := true
+
+func _push_log(log_str: String) -> void:
+    LOG_POSTS.append(log_str)
+
 
 func post(target: String, message: Dictionary) -> void:
     var group = _get_group_name(target)
@@ -14,14 +18,14 @@ func post(target: String, message: Dictionary) -> void:
         tree.call_group(group, method, message)
     else:
         var err_str = "MessageHole Error: %s group not found" % group
-        printerr(err_str)
+        push_warning(err_str)
         log_str += " // " + err_str
 
-    if is_enable_log: _log.append(log_str)
+    if is_enable_log: _push_log(log_str)
 
 
 func get_log() -> Array:
-    return _log.LOG_POSTS
+    return LOG_POSTS
 
 
 static func _get_group_name(target: String) -> String:

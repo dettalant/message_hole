@@ -1,5 +1,8 @@
 extends Control
 
+func _ready() -> void:
+    MessageHole.set_is_enable_log(true)
+
 
 func _input(e: InputEvent):
     if e.is_action_pressed("ui_accept"):
@@ -10,18 +13,17 @@ func _input(e: InputEvent):
 
 
 func _post_test() -> void:
-    var m = MessageHole.gen_message(self, "TEST MESSAGE")
-    MessageHole.post("echo", m)
+    MessageHole.post("echo", MessagePack.new(self, "TEST_MESSAGE"))
 
 
 func _get_log_test() -> void:
-    var m = MessageHole.gen_message(self)
+    var m = MessagePack.new(self)
     MessageHole.post("print_log", m)
 
 
-func _method_echo(m: Dictionary) -> void:
-    print("method_echo: %s, %s" % [m.sender.name, m.message])
+func _method_echo(m: MessagePack) -> void:
+    print("method_echo: %s, %s" % [m.get_sender().name, m.get_message()])
 
 
-func _method_print_log(_m: Dictionary) -> void:
+func _method_print_log(_m: MessagePack) -> void:
     print("method_print_log: ", MessageHole.get_log())

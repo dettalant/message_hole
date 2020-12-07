@@ -8,9 +8,14 @@
 
 config_version=4
 
-_global_script_classes=[  ]
+_global_script_classes=[ {
+"base": "Object",
+"class": "MessagePack",
+"language": "GDScript",
+"path": "res://addons/message_hole/message_pack.gd"
+} ]
 _global_script_class_icons={
-
+"MessagePack": ""
 }
 
 [application]
@@ -21,7 +26,7 @@ config/icon="res://icon.png"
 
 [autoload]
 
-MessageHole="*res://message_hole.gd"
+MessageHole="*res://addons/message_hole/message_hole.gd"
 
 [debug]
 

@@ -23,8 +23,8 @@ func get_log() -> Array:
     return _m_log.get_logs()
 
 
-func get_is_enable_log() -> bool:
-    return _m_log.get_is_enable_log()
+func is_enable_log() -> bool:
+    return _m_log.is_enable_log()
 
 
 func set_is_enable_log(b: bool) -> void:

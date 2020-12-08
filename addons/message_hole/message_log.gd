@@ -12,7 +12,7 @@ func get_logs() -> Array:
     return LOG_POSTS
 
 
-func get_is_enable_log() -> bool:
+func is_enable_log() -> bool:
     return _is_enable_log
 
 

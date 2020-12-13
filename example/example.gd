@@ -13,12 +13,11 @@ func _input(e: InputEvent):
 
 
 func _post_test() -> void:
-    MessageHole.post("echo", MessagePack.new(self, "TEST_MESSAGE"))
+    MessageHole.post("echo", self, "TEST_MESSAGE")
 
 
 func _get_log_test() -> void:
-    var m = MessagePack.new(self)
-    MessageHole.post("print_log", m)
+    MessageHole.post("print_log", self)
 
 
 func _method_echo(m: MessagePack) -> void:

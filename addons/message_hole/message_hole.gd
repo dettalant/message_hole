@@ -3,20 +3,24 @@ extends Node
 const MessageLog = preload("res://addons/message_hole/message_log.gd")
 var _m_log = MessageLog.new()
 
-func post(target: String, message: MessagePack) -> void:
+func post(target: String, sender: Node, message = "", args := {}) -> void:
+    var m_pack = MessagePack.new(sender, message, args)
     var group = _get_group_name(target)
     var method = _get_method_name(target)
-    var log_str = target + ": " + str(message.get_message())
+    var is_failed = false
 
     var tree := get_tree()
     if tree.has_group(group):
-        tree.call_group(group, method, message)
+        tree.call_group(group, method, m_pack)
     else:
-        var err_str = "MessageHole Error: %s group not found" % group
+        var err_str = "MessageHole Error: group of %s is not found" % group
         push_warning(err_str)
-        log_str += " // " + err_str
+        is_failed = true
 
-    if _m_log.get_is_enable_log(): _m_log.push_log(log_str)
+    if _m_log.is_enable_log():
+        var log_dict = _m_log.gen_log_dict(target, sender, message, args)
+        if is_failed: log_dict.is_sent = false
+        _m_log.push_log(log_dict)
 
 
 func get_log() -> Array:
@@ -37,7 +41,3 @@ static func _get_group_name(target: String) -> String:
 
 static func _get_method_name(target: String) -> String:
     return "_method_" + target
-
-
-static func gen_message(sender: Node, message = "", args := {}) -> MessagePack:
-    return MessagePack.new(sender, message, args)

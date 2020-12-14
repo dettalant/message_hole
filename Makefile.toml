@@ -1,0 +1,19 @@
+[config]
+skip_core_tasks = true
+
+[tasks.test.env]
+GUT_CMDLN_PATH = "addons/gut/gut_cmdln.gd"
+
+[tasks.test]
+script_runner = "@shell"
+script = [
+"""
+# gut exist check
+if ! [ -e ${GUT_CMDLN_PATH} ]; then
+  echo "${GUT_CMDLN_PATH} is not exists, task finished."
+  exit 1
+fi
+
+godot --path . -s ${GUT_CMDLN_PATH}
+"""
+]

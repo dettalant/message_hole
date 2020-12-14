@@ -37,6 +37,10 @@ gdscript/warnings/unsafe_method_access=true
 gdscript/warnings/unsafe_cast=true
 gdscript/warnings/unsafe_call_argument=true
 
+[editor_plugins]
+
+enabled=PoolStringArray( "gut" )
+
 [rendering]
 
 environment/default_environment="res://default_env.tres"

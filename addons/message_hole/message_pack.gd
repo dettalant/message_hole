@@ -45,6 +45,7 @@ func is_dictionary_message() -> bool:
 
 
 func is_specify_class_message(c_name: String) -> bool:
+    # Immediatery return if _message not inherited Object.
     if !(_message is Object): return false
     return _message.get_class() == c_name
 
